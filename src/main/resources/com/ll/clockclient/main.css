@@ -1,0 +1,81 @@
+
+
+.mfx-text-field {
+    -fx-background-color: TRANSPARENT;
+}
+.mfx-text-field .floating-text {
+    -fx-text-fill: #ffffff;
+}
+.mfx-text-field .text-field {
+    -fx-background-color: #2A2631;
+}
+.mfx-list-view {
+    -fx-background-color: TRANSPARENT;
+}
+.mfx-list-view .virtual-flow {
+    -fx-background-color: #2A2631;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+.mfx-list-view .virtual-flow .mfx-list-cell .data-label{
+    -fx-text-fill: #ffffff;
+}
+
+.date-picker {
+    -fx-background-color: TRANSPARENT;
+}
+.date-picker .text-field {
+    -fx-background-color: #2A2631;
+    -fx-text-fill: #ffffff;
+    -fx-focus-color: #2A2631;
+    -fx-faint-focus-color: #2A2631;
+     -fx-background-insets: 0;
+}
+.date-picker:focused .text-field {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #423d4a;
+}
+.date-picker > .arrow-button {
+    -fx-background-color: #423d4a;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.date-picker:hover > .arrow-button {
+    -fx-background-color: #625a6e;
+}
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #ffffff;
+}
+.date-picker-popup > .month-year-pane > .secondary-label {
+    -fx-text-fill: #ffffff;
+}
+
+.date-picker-popup > * > .spinner {
+
+}
+.date-picker-popup > * > .spinner > .button {
+    -fx-background-color: TRANSPARENT;
+    -fx-background-insets: 0, 1, 2;
+    -fx-color: transparent;
+    -fx-background-radius: 0;
+}
+.date-picker-popup > * > .spinner > .button:focused {
+    -fx-background-color: TRANSPARENT;
+    -fx-color: #ffffff;
+}
+.date-picker-popup > * > .spinner > .button:hover {
+    -fx-color: #ffffff;
+}
+.date-picker-popup > * > .spinner > .button:armed {
+    -fx-color: #ffffff;
+}
+.date-picker-popup > * > .spinner > .label {
+    -fx-text-fill: #ffffff;
+}

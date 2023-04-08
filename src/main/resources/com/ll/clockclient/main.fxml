@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #16151c; -fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ll.clockclient.controllers.MainController">
+   <children>
+      <VBox prefHeight="66.0" prefWidth="642.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="642.0">
+               <children>
+                  <MFXButton alignment="CENTER" onAction="#settingsPopup" prefHeight="28.0" prefWidth="48.0" style="-fx-background-color: TRANSPARENT;" text="O" textFill="WHITE">
+                     <font>
+                        <Font name="Comfortaa Medium" size="12.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton alignment="CENTER" onAction="#minimizeApp" prefHeight="28.0" prefWidth="48.0" style="-fx-background-color: TRANSPARENT;" text="__" textFill="WHITE">
+                     <font>
+                        <Font name="Comfortaa Medium" size="12.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton alignment="CENTER" onAction="#closeApp" prefHeight="28.0" prefWidth="48.0" style="-fx-background-color: TRANSPARENT;" text="X" textFill="WHITE">
+                     <font>
+                        <Font name="Comfortaa Regular" size="12.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="642.0">
+               <children>
+                  <MFXButton fx:id="clockPageBtn" depthLevel="LEVEL0" prefHeight="46.0" prefWidth="95.0" style="-fx-background-color: TRANSPARENT;" text="Clock" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Bold" size="14.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="alarmsPageBtn" fx:id="alarmsPageBtn" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: TRANSPARENT;" text="Alarms" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Bold" size="14.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="timerPageBtn" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: TRANSPARENT;" text="Timer" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Bold" size="14.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="clockPage" layoutY="66.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="640.0" visible="false">
+         <children>
+            <Label fx:id="time" alignment="CENTER" layoutY="61.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="640.0" text="12:45:00" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century" size="80.0" />
+               </font>
+            </Label>
+            <Label fx:id="date" alignment="CENTER" layoutY="200.0" prefHeight="66.0" prefWidth="641.0" text="12:45:00" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="lastSynced" layoutX="14.0" layoutY="381.0" text="Last Synced with Time Server: None" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="timerPage" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="620.0" visible="false">
+         <children>
+            <Label layoutX="7.0" layoutY="3.0" prefHeight="50.0" prefWidth="189.0" text="Timers" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans SemiBold" size="24.0" />
+               </font>
+            </Label>
+            <MFXListView fx:id="timersListView" layoutY="119.0" prefHeight="285.0" prefWidth="620.0" styleClass=".mfx-list-view" stylesheets="@main.css" />
+            <HBox alignment="CENTER_LEFT" layoutY="53.0" prefHeight="66.0" prefWidth="620.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="506.0">
+                     <children>
+                        <MFXTextField fx:id="timerHourInput" floatingText="Hours" floatingTextGap="1.0" prefHeight="50.0" prefWidth="120.0" promptText="Hours" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXTextField fx:id="timerMinuteInput" floatingText="Minutes" prefHeight="41.0" prefWidth="120.0" promptText="Minutes" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXTextField fx:id="timerSecondInput" floatingText="Seconds" prefHeight="41.0" prefWidth="120.0" promptText="Seconds" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                     </children>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </HBox>
+                  <MFXButton onAction="#addTimer" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #2A2631;" text="Add" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="alarmsPage" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="620.0">
+         <children>
+            <Label layoutX="7.0" layoutY="3.0" prefHeight="50.0" prefWidth="189.0" text="Alarms" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans SemiBold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" layoutY="53.0" prefHeight="66.0" prefWidth="620.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="626.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Date" textFill="WHITE">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <DatePicker fx:id="alarmDate" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="118.0" promptText="Date">
+                                 <VBox.margin>
+                                    <Insets right="10.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                        </VBox>
+                        <MFXTextField fx:id="alarmHourInput" floatingText="Hour" floatingTextGap="1.0" prefHeight="50.0" prefWidth="63.0" promptText="Hour" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXTextField fx:id="alarmMinuteInput" floatingText="Minute" prefHeight="49.0" prefWidth="85.0" promptText="Minute" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXTextField fx:id="alarmSecondInput" floatingText="Second" prefHeight="49.0" prefWidth="80.0" promptText="Second" styleClass="mfx-text-field" stylesheets="@main.css">
+                           <textFill>
+                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+                           </textFill>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXButton fx:id="soundButton" onAction="#selectSound" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #2A2631;" text="DefaultAlarm.mp3" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="10.0" top="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton onAction="#addAlarm" prefHeight="32.0" prefWidth="64.0" style="-fx-background-color: #2A2631;" text="Add" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets top="15.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                     </children>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+            <MFXListView fx:id="alarmsListView" layoutY="119.0" prefHeight="285.0" prefWidth="620.0" styleClass=".mfx-list-view" stylesheets="@main.css" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
