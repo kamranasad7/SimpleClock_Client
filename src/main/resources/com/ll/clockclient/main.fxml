@@ -12,6 +12,8 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.dialogs.MFXGenericDialog?>
 <AnchorPane prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #16151c; -fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ll.clockclient.controllers.MainController">
    <children>
       <VBox prefHeight="66.0" prefWidth="642.0">
@@ -56,7 +58,7 @@
             </HBox>
          </children>
       </VBox>
-      <AnchorPane fx:id="clockPage" layoutY="66.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="640.0" visible="false">
+      <AnchorPane fx:id="clockPage" layoutX="10.0" layoutY="66.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="640.0">
          <children>
             <Label fx:id="time" alignment="CENTER" layoutY="61.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="640.0" text="12:45:00" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -130,13 +132,14 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="alarmsPage" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="620.0">
+      <AnchorPane fx:id="alarmsPage" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="620.0" visible="false">
          <children>
             <Label layoutX="7.0" layoutY="3.0" prefHeight="50.0" prefWidth="189.0" text="Alarms" textFill="WHITE">
                <font>
                   <Font name="Open Sans SemiBold" size="24.0" />
                </font>
             </Label>
+            <MFXButton layoutX="471.0" layoutY="12.0" onAction="#showAlarms" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #2A2631;" text="Show Ongoing Alarms" textFill="WHITE" />
             <HBox alignment="CENTER_LEFT" layoutY="53.0" prefHeight="66.0" prefWidth="620.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="626.0">
@@ -180,18 +183,7 @@
                               <Font size="15.0" />
                            </font>
                         </MFXTextField>
-                        <MFXTextField fx:id="alarmSecondInput" floatingText="Second" prefHeight="49.0" prefWidth="80.0" promptText="Second" styleClass="mfx-text-field" stylesheets="@main.css">
-                           <textFill>
-                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
-                           </textFill>
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </MFXTextField>
-                        <MFXButton fx:id="soundButton" onAction="#selectSound" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #2A2631;" text="DefaultAlarm.mp3" textFill="WHITE">
+                        <MFXButton fx:id="soundButton" onAction="#selectSound" prefHeight="32.0" prefWidth="165.0" style="-fx-background-color: #2A2631;" text="DefaultAlarm.mp3" textFill="WHITE">
                            <HBox.margin>
                               <Insets right="10.0" top="15.0" />
                            </HBox.margin>
@@ -199,7 +191,7 @@
                               <Font size="10.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton onAction="#addAlarm" prefHeight="32.0" prefWidth="64.0" style="-fx-background-color: #2A2631;" text="Add" textFill="WHITE">
+                        <MFXButton onAction="#addAlarm" prefHeight="32.0" prefWidth="79.0" style="-fx-background-color: #2A2631;" text="Add" textFill="WHITE">
                            <HBox.margin>
                               <Insets top="15.0" />
                            </HBox.margin>
@@ -214,5 +206,24 @@
             <MFXListView fx:id="alarmsListView" layoutY="119.0" prefHeight="285.0" prefWidth="620.0" styleClass=".mfx-list-view" stylesheets="@main.css" />
          </children>
       </AnchorPane>
+      <MFXGenericDialog fx:id="settingsDialog" alwaysOnTop="true" contentText="Settings" headerText="Settings" layoutX="121.0" layoutY="61.0" onClose="#closeSettings" prefHeight="235.0" prefWidth="400.0" showAlwaysOnTop="false" showClose="true" showMinimize="false" visible="false">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Select Timezone">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <MFXFilterComboBox fx:id="timezoneDropdown" floatingText="Current" layoutX="10.0" layoutY="10.0" onMouseClicked="#timezoneClick" prefHeight="40.0" prefWidth="200.0" scrollOnOpen="true" selectable="true" />
+                     </children>
+                  </HBox>
+                  <MFXButton defaultButton="true" onAction="#saveSettings" prefHeight="37.0" prefWidth="90.0" style="-fx-background-color: #6200EE; -fx-text-fill: #FFFFFF;" text="Save" textFill="WHITE" />
+               </children>
+            </VBox>
+         </center>
+      </MFXGenericDialog>
    </children>
 </AnchorPane>

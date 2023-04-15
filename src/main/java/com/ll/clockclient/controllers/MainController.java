@@ -1,9 +1,13 @@
 package com.ll.clockclient.controllers;
 
 import com.ll.clockclient.Alarm;
+import com.ll.clockclient.AlarmNotification;
 import com.ll.clockclient.Timer;
 import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.controls.cell.MFXNotificationCell;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
+import io.github.palexdev.materialfx.enums.NotificationPos;
+import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +30,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Window;
 
 public class MainController {
 
@@ -36,7 +41,9 @@ public class MainController {
 
     Media ding = new Media(new File("ding.mp3").toURI().toString());
     MediaPlayer dingPlayer = new MediaPlayer(ding);
-    public MainController() throws SocketException { }
+    public MainController() throws SocketException {
+
+    }
 
     @FXML
     public void closeApp() {
@@ -103,12 +110,15 @@ public class MainController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Music Files", "*.mp3"));
         File selectedFile = fileChooser.showOpenDialog(time.getScene().getWindow());
-        soundButton.setText(selectedFile.getName());
-        selectedSoundPath = selectedFile.getAbsolutePath();
+        if(selectedFile != null && !selectedFile.getName().isBlank()) {
+            soundButton.setText(selectedFile.getName());
+            selectedSoundPath = selectedFile.getAbsolutePath();
+        }
+        else selectedSoundPath = "DefaultAlarm.mp3";
     }
 
     @FXML void addAlarm() {
-        int h, m, s;
+        int h, m;
         try {
             if(alarmHourInput.getText() == null || alarmHourInput.getText().isBlank()) {
                 alarmHourInput.setText("0");
@@ -116,17 +126,26 @@ public class MainController {
             if(alarmMinuteInput.getText() == null || alarmMinuteInput.getText().isBlank()) {
                 alarmMinuteInput.setText("0");
             }
-            if(alarmSecondInput.getText() == null || alarmSecondInput.getText().isBlank()) {
-                alarmSecondInput.setText("0");
-            }
             h = Integer.parseInt(alarmHourInput.getText());
             m = Integer.parseInt(alarmMinuteInput.getText());
-            s = Integer.parseInt(alarmSecondInput.getText());
         }
         catch (Exception e) { return; }
-        LocalTime time = LocalTime.of(h, m, s);
+        LocalTime time = LocalTime.of(h, m);
         Alarm alarm = new Alarm(LocalDateTime.of(alarmDate.getValue(), time), selectedSoundPath);
         alarms.add(alarm);
+    }
+
+    @FXML
+    private void showAlarms() {
+        MFXNotificationCenterSystem.instance().getCenter().setShowing(true);
+    }
+    @FXML
+    void showAlarmNotification (Alarm alarm) {
+
+        AlarmNotification notification = new AlarmNotification(alarm, alarms);
+        notification.setContentText(alarm.toString());
+        MFXNotificationCenterSystem.instance().publish(notification);
+        alarm.play();
     }
 
     @FXML
@@ -173,8 +192,6 @@ public class MainController {
     private MFXTextField alarmHourInput;
     @FXML
     private MFXTextField alarmMinuteInput;
-    @FXML
-    private MFXTextField alarmSecondInput;
     @FXML
     private DatePicker alarmDate;
 
@@ -229,12 +246,12 @@ public class MainController {
                 }
             }
         }).start();
-/*
+
         timezones = FXCollections.observableArrayList();
         timezones.addAll(ZoneId.getAvailableZoneIds());
         timezoneDropdown.setItems(timezones);
         timezoneDropdown.promptTextProperty().setValue(timeZone.toString());
-*/
+
 
         //TIMER PAGE
         timerHourInput.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -265,6 +282,7 @@ public class MainController {
                         for (int i = 0; i < timers.size(); i++) {
                             if(timerObjs.get(i).isExpired()) {
                                 timers.remove(i); timerObjs.remove(i);
+                                dingPlayer.stop();
                                 dingPlayer.play();
                             }
                             else timers.set(i, timerObjs.get(i).toString());
@@ -287,18 +305,33 @@ public class MainController {
             while (true) {
                 try {
                     Platform.runLater(() -> {
-                        for (Alarm alarm : alarms) {
-                            if (alarm.isFired()) {
-                                //timers.remove(i); timerObjs.remove(i);
-                                alarm.play();
+                        for (int i = 0; i < alarms.size(); i++) {
+                            if(alarms.get(i).isFired(timeZone)) {
+                                Alarm alarm = alarms.remove(i);
+                                showAlarmNotification(alarm);
                             }
                         }
+
                     });
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
             }
+        }).start();
+
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                Window window = time.getScene().getWindow();
+                MFXNotificationCenterSystem.instance().initOwner(window);
+
+                MFXNotificationCenter center = MFXNotificationCenterSystem.instance().getCenter();
+                center.setCellFactory(notification -> new MFXNotificationCell(center, notification) {{
+                    setPrefHeight(200);
+                }});
+                MFXNotificationCenterSystem.instance().setPosition(NotificationPos.BOTTOM_RIGHT);
+                center.setHeaderTextProperty("Alarms");
+            });
         }).start();
     }
 

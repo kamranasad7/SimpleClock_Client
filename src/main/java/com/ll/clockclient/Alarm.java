@@ -5,6 +5,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class Alarm {
@@ -21,12 +22,19 @@ public class Alarm {
         soundPlayer = new MediaPlayer(sound);
     }
 
-    public boolean isFired() {
-        return LocalDateTime.now().isAfter(dateTime);
+    public boolean isFired(ZoneId timeZone) {
+        return LocalDateTime.now(timeZone).isAfter(dateTime);
     }
 
     public void play(){
         soundPlayer.play();
+    }
+    public void dismiss() {
+        soundPlayer.stop();
+    }
+    public void snooze() {
+        soundPlayer.stop();
+        dateTime = dateTime.plusMinutes(5);
     }
 
     @Override

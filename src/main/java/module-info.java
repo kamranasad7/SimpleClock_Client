@@ -3,6 +3,7 @@ module com.ll.clockclient {
     requires javafx.fxml;
     requires MaterialFX;
     requires javafx.media;
+    requires mfx.resources;
 
 
     opens com.ll.clockclient to javafx.fxml;

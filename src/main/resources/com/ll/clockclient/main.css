@@ -79,3 +79,35 @@
 .date-picker-popup > * > .spinner > .label {
     -fx-text-fill: #ffffff;
 }
+
+.notification {
+	-fx-background-color: #16151C;
+	-fx-background-radius: 8;
+	-fx-border-color: #ebebeb;
+	-fx-border-radius: 8;
+}
+
+.notification .label {
+	-fx-text-fill: #ffffff;
+}
+
+.notification .content {
+    -fx-background-color: #16151c;
+	-fx-padding: 10;
+}
+
+.notification .actions-bar {
+    -fx-background-color: #2A2631;
+}
+
+.notification .mfx-button {
+    -fx-background-color: #2A2631;
+    -fx-text-fill: #ffffff;
+	-fx-min-height: 27;
+	-fx-border-radius: 3;
+}
+
+.notification .mfx-button .mfx-ripple-generator {
+	-mfx-auto-clip: true;
+	-mfx-ripple-color: derive(#7a0ed9, 125%);
+}
